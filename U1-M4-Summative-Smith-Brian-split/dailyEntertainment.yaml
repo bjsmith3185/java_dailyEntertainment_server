@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  title: Daily Entertaiment 
+  description: Web service that provides daily entertainment options
+  version: 0.0.1
+servers: 
+  - url: http://localhost:8080
+    description: local dev server
+paths:
+  /quote:
+    get:
+      summary: Returns a random quote and author
+      responses:
+        '201':
+          description: Quote object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+  /word:
+    get:
+      summary: Returns a random word and definition
+      responses:
+        '201':
+          description: Definition object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Definition'
+  /magic:
+    post:
+      summary: Request a question as a string and returns an answer as Answer object
+      requestBody:
+        description: only the question property needs to be sent
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answer'
+      responses:
+        '201':
+          description: Answer object, a random answer property will be added to the original Answer object containing the question.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Answer'
+                
+                
+                
+components:
+  schemas:
+    Quote:
+      properties:
+        author:
+          type: string
+        quote:
+          type: string
+    Definition:
+      properties:
+        word:
+          type: string
+        definition: 
+          type: string
+    Answer:
+      properties:
+        question:
+          type: string
+        answer:
+          type: string
+  
